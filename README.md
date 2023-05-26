@@ -42,3 +42,13 @@ docker-compose down
 - Use `host.docker.internal` to refer to host network.
 - Your data will be available under `_airbyte_data` key.
 - [This](https://stackoverflow.com/questions/66483326/mongodb-how-to-transform-existing-document-to-expected-structure) might help if you need to do further transformation
+
+# Update many document in a collection
+
+```
+db.getCollection("airbyte_raw_language").updateMany({}, {
+    $set: {
+        id: "$_airbyte_data.id"
+    }
+})
+```
