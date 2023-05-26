@@ -270,7 +270,8 @@ services:
 
   postgres:
     image: postgres:latest
-    restart: always
+    container_name: postgres
+    restart: unless-stopped
     environment:
       POSTGRES_USER: ${BASIC_AUTH_USERNAME}
       POSTGRES_PASSWORD: ${BASIC_AUTH_PASSWORD}
@@ -282,14 +283,34 @@ services:
 
   mongodb:
     image: mongo:latest
-    restart: always
+    container_name: mongodb
+    restart: unless-stopped
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${BASIC_AUTH_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${BASIC_AUTH_PASSWORD}
+      MONGO_INITDB_DATABASE: sample
     volumes:
       - ./mongodb-data:/data/db
     ports:
       - 27017:27017
+  
+  adminer:
+    container_name: adminer
+    image: adminer
+    restart: unless-stopped
+    ports:
+      - 8080:8080
+
+  mongo-express:
+    container_name: mongo-express
+    image: mongo-express
+    restart: unless-stopped
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${BASIC_AUTH_USERNAME}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${BASIC_AUTH_PASSWORD}
+      ME_CONFIG_MONGODB_SERVER: mongodb
 
 volumes:
   workspace:
