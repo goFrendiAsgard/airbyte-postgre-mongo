@@ -1,6 +1,6 @@
 # What is this
 
-Airbyte + Postgre + Mongodb in a single docker-compose
+POC to ectract data from postgres and load into mongodb using airbyte.
 
 # Prerequisites
 
@@ -39,4 +39,6 @@ docker-compose down
 
 # Caveat
 
-Use `host.docker.internal` to refer to host network.
+- Use `host.docker.internal` to refer to host network.
+- Your data will be available under `_airbyte_data` key.
+- [This](https://stackoverflow.com/questions/66483326/mongodb-how-to-transform-existing-document-to-expected-structure) might help if you need to do further transformation
