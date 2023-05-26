@@ -1,0 +1,5 @@
+.env
+temporal
+flags.yml
+mongodb-data
+postgres-data
